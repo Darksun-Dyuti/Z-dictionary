@@ -1,51 +1,41 @@
-# Z-Dictionary 🦉  
+# 📖 Z Dictionary Web App
 
-A clean, simple, and elegant **web-based dictionary application** that allows you to quickly find word definitions, pronunciations, examples, and synonyms. It also features a **sleek dark mode** for comfortable nighttime browsing.  
-
----
-
-## 🚀 Features  
-
-- 🔍 **Search** any English word and get instant results  
-- 📖 Shows:  
-  - Word definition(s)  
-  - Pronunciation (if available)  
-  - Example usage  
-  - Synonyms  
-- 🌓 **Light/Dark mode toggle**  
-- 🎨 **Clean and responsive UI**  
+A sleek, responsive, and intelligent dictionary web app built using **HTML, CSS, and JavaScript** — featuring **live word suggestions**, **real-time definitions**, and a smooth **dark/light mode toggle** 🌙☀️.  
+Fully deployable on **Netlify** and optimized for all devices.
 
 ---
 
-## 💻 Technologies Used  
+## 🧩 Description
 
-This project was built using fundamental web technologies:  
-
-- **HTML5** – Structure  
-- **CSS3** – Styling & Dark mode  
-- **JavaScript (Vanilla)** – Fetching API & functionality  
-- **Dictionary API** – [dictionaryapi.dev](https://dictionaryapi.dev)  
+The **Smart Dictionary** helps users quickly find the meaning, pronunciation, and usage examples of any English word.  
+It also provides **auto-suggestions** as you type, powered by public dictionary APIs.  
+The app is built as a **frontend-only project**, requiring no backend — making it fast, lightweight, and easy to deploy anywhere.
 
 ---
 
-## 📸 Screenshots
+## ✨ Features
 
-**1.**
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/7777c041-c3b4-461c-b919-84e9e7736a46" />
-
-**2.**
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/0affe772-3165-4310-bc79-0ae0bec6507d" />
-
-**3.**
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/be7ff597-86f5-48c3-a595-10c8473d95c2" />
+- 🔍 **Live Word Suggestions** — get instant suggestions while typing  
+- 📚 **Real-Time Definitions** — fetches word meaning, phonetics, and examples  
+- 🔊 **Audio Pronunciation** — listen to how the word is pronounced  
+- 🌓 **Dark / Light Mode** — remembers your preference automatically  
+- 💨 **Responsive Design** — works seamlessly on phones, tablets, and desktops  
+- ⚡ **Fast & Serverless** — no backend required, works purely on APIs  
 
 ---
 
-## Acknowledgements 🙏
+## 🛠️ Technologies Used
 
-This application uses the free [DictionaryAPI](https://dictionaryapi.dev/) for fetching word definitions.  
-A big thank you to the creators for providing this wonderful resource!  
+| Technology | Purpose |
+|-------------|----------|
+| **HTML5** | Structure of the web app |
+| **CSS3** | Styling with glassmorphism & responsiveness |
+| **JavaScript (ES6)** | Functionality, API calls, and DOM manipulation |
+| **Dictionary API** ([dictionaryapi.dev](https://dictionaryapi.dev/)) | Provides definitions, phonetics, and examples |
+| **Datamuse API** ([datamuse.com/api/](https://www.datamuse.com/api/)) | Provides live word suggestions |
+| **Netlify** | Hosting & deployment |
 
 ---
+
 
 
