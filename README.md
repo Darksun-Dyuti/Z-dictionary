@@ -7,7 +7,7 @@ Fully deployable on **Netlify** and optimized for all devices.
 
 ## 🧩 Description
 
-The **Smart Dictionary** helps users quickly find the meaning, pronunciation, and usage examples of any English word.  
+This **Smart Z-Dictionary** helps users quickly find the meaning, pronunciation, and usage examples of any English word.  
 It also provides **auto-suggestions** as you type, powered by public dictionary APIs.  
 The app is built as a **frontend-only project**, requiring no backend — making it fast, lightweight, and easy to deploy anywhere.
 
