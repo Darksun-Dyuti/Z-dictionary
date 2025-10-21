@@ -48,13 +48,4 @@ A big thank you to the creators for providing this wonderful resource!
 
 ---
 
-## ⚡ How to Run Locally  
 
-```bash
-# Clone the repository  
-git clone https://github.com/your-username/z-dictionary.git  
-
-# Navigate into the project folder  
-cd z-dictionary  
-
-# Open index.html in your browser  
