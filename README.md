@@ -1,4 +1,4 @@
-# 📖 Z Dictionary Web App
+# 📖 Z Dictionary Web
 
 A sleek, responsive, and intelligent dictionary web app built using **HTML, CSS, and JavaScript** — featuring **live word suggestions**, **real-time definitions**, and a smooth **dark/light mode toggle** 🌙☀️.  
 Fully deployable on **Netlify** and optimized for all devices.
