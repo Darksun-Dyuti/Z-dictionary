@@ -1,41 +1,36 @@
-# 📖 Z Dictionary Web
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-A sleek, responsive, and intelligent dictionary web app built using **HTML, CSS, and JavaScript** — featuring **live word suggestions**, **real-time definitions**, and a smooth **dark/light mode toggle** 🌙☀️.  
-Fully deployable on **Netlify** and optimized for all devices.
+## Getting Started
 
----
+First, run the development server:
 
-## 🧩 Description
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-This **Smart Z-Dictionary** helps users quickly find the meaning, pronunciation, and usage examples of any English word.  
-It also provides **auto-suggestions** as you type, powered by public dictionary APIs.  
-The app is built as a **frontend-only project**, requiring no backend — making it fast, lightweight, and easy to deploy anywhere.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
----
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-## ✨ Features
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-- 🔍 **Live Word Suggestions** — get instant suggestions while typing  
-- 📚 **Real-Time Definitions** — fetches word meaning, phonetics, and examples  
-- 🔊 **Audio Pronunciation** — listen to how the word is pronounced  
-- 🌓 **Dark / Light Mode** — remembers your preference automatically  
-- 💨 **Responsive Design** — works seamlessly on phones, tablets, and desktops  
-- ⚡ **Fast & Serverless** — no backend required, works purely on APIs  
+## Learn More
 
----
+To learn more about Next.js, take a look at the following resources:
 
-## 🛠️ Technologies Used
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-| Technology | Purpose |
-|-------------|----------|
-| **HTML5** | Structure of the web app |
-| **CSS3** | Styling with glassmorphism & responsiveness |
-| **JavaScript (ES6)** | Functionality, API calls, and DOM manipulation |
-| **Dictionary API** ([dictionaryapi.dev](https://dictionaryapi.dev/)) | Provides definitions, phonetics, and examples |
-| **Datamuse API** ([datamuse.com/api/](https://www.datamuse.com/api/)) | Provides live word suggestions |
-| **Netlify** | Hosting & deployment |
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
----
+## Deploy on Vercel
 
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
