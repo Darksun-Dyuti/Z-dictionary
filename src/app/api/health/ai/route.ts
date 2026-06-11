@@ -19,7 +19,7 @@ export async function GET() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         contents: [{ parts: [{ text: "Respond with the word OK" }] }],
-        generationConfig: { temperature: 0.1, maxOutputTokens: 10 }
+        generationConfig: { temperature: 0.1, maxOutputTokens: 1000 }
       })
     });
 

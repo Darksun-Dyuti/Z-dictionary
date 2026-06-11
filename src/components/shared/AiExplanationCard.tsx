@@ -97,10 +97,28 @@ export default function AiExplanationCard({ query, type }: AiExplanationCardProp
 
         {explanation && (
           <div className="prose prose-sm dark:prose-invert max-w-none p-4 rounded-md bg-background border mt-4">
-            {/* Simple Markdown rendering by splitting paragraphs */}
-            {explanation.split('\n').map((paragraph, idx) => (
-              paragraph.trim() ? <p key={idx}>{paragraph}</p> : <br key={idx} />
-            ))}
+            {/* Simple Markdown rendering by splitting paragraphs and parsing bold text */}
+            {explanation.split('\n').map((paragraph, idx) => {
+              if (!paragraph.trim()) return <br key={idx} />
+              
+              // Parse **bold** text
+              const parts = paragraph.split(/(\*\*.*?\*\*)/g);
+              
+              return (
+                <p key={idx}>
+                  {parts.map((part, i) => {
+                    if (part.startsWith('**') && part.endsWith('**')) {
+                      return <strong key={i} className="font-semibold text-primary/90">{part.slice(2, -2)}</strong>;
+                    }
+                    // Handle bullet points slightly better
+                    if (part.startsWith('* ')) {
+                      return <span key={i} className="ml-4 flex"><span className="mr-2">•</span>{part.slice(2)}</span>;
+                    }
+                    return part;
+                  })}
+                </p>
+              )
+            })}
           </div>
         )}
       </CardContent>

@@ -92,7 +92,7 @@ export async function explainWithAI(query: string, type: "dictionary" | "encyclo
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           contents: [{ parts: [{ text: prompt }] }],
-          generationConfig: { temperature: 0.7, maxOutputTokens: 500 }
+          generationConfig: { temperature: 0.7, maxOutputTokens: 4000 }
         })
       })
 
