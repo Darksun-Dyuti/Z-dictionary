@@ -16,8 +16,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Arcanaz | Knowledge Platform",
+  title: "Arcanaz",
   description: "A modern dictionary and encyclopedia platform.",
+  icons: {
+    icon: "/logo-latest.png",
+  },
 };
 
 export default function RootLayout({

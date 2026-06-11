@@ -11,9 +11,9 @@ export default function Home() {
       
       {/* Compressed Hero Section */}
       <section className="flex flex-col items-center justify-center pt-10 pb-6 text-center space-y-6 relative">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/20 blur-[120px] rounded-full pointer-events-none -z-10" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-blue-300/50 dark:bg-white/20 blur-[120px] rounded-full pointer-events-none -z-10" />
         
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter text-transparent bg-clip-text bg-linear-to-br from-foreground to-foreground/50 pb-2">
+        <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter text-transparent bg-clip-text bg-linear-to-br from-foreground to-foreground/50 pb-2 pr-2">
           Knowledge Beyond Definitions
         </h1>
         <p className="text-xl md:text-2xl font-medium text-muted-foreground max-w-2xl mx-auto mb-4 tracking-tight">

@@ -21,7 +21,11 @@ export default function AiExplanationCard({ query, type }: AiExplanationCardProp
     setError(null)
     try {
       const result = await explainWithAI(query, type, mode)
-      setExplanation(result)
+      if (result.success) {
+        setExplanation(result.text as string)
+      } else {
+        setError(result.error as string)
+      }
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Failed to get AI explanation")
     } finally {
@@ -84,7 +88,12 @@ export default function AiExplanationCard({ query, type }: AiExplanationCardProp
           )}
         </div>
 
-        {error && <p className="text-red-500 text-sm">{error}</p>}
+        {error && (
+          <div className="bg-destructive/10 border border-destructive/20 text-destructive p-4 rounded-md text-sm mt-4">
+            <p className="font-semibold mb-1">AI Assistant Unavailable</p>
+            <p>{error}</p>
+          </div>
+        )}
 
         {explanation && (
           <div className="prose prose-sm dark:prose-invert max-w-none p-4 rounded-md bg-background border mt-4">

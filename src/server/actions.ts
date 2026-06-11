@@ -1,6 +1,7 @@
 "use server"
 
 import { auth } from "@/lib/auth"
+import { AI_CONFIG, getGeminiApiKey } from "@/lib/ai-config"
 // import connectToDatabase from "@/lib/db-mongoose"
 // import SavedWord from "@/models/SavedWord"
 // import ReadingHistory from "@/models/ReadingHistory"
@@ -58,9 +59,12 @@ export async function checkIsSaved(_word: string, _type: "dictionary" | "encyclo
 }
 
 export async function explainWithAI(query: string, type: "dictionary" | "encyclopedia", mode: "simple" | "eli10" | "summarize") {
-  const apiKey = process.env.GEMINI_API_KEY
-  if (!apiKey) {
-    throw new Error("AI features are not configured.")
+  let apiKey: string;
+  try {
+    apiKey = getGeminiApiKey();
+  } catch (error) {
+    console.error("AI Configuration Error:", error);
+    return { success: false, error: "AI features are not configured properly." };
   }
 
   let prompt = ""
@@ -78,27 +82,49 @@ export async function explainWithAI(query: string, type: "dictionary" | "encyclo
     }
   }
 
-  try {
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: { temperature: 0.7, maxOutputTokens: 500 }
+  let retries = 3;
+  let delay = 1000;
+
+  while (retries > 0) {
+    try {
+      const response = await fetch(`${AI_CONFIG.baseUrl}/${AI_CONFIG.defaultModel}:generateContent?key=${apiKey}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          generationConfig: { temperature: 0.7, maxOutputTokens: 500 }
+        })
       })
-    })
 
-    if (!response.ok) {
-      throw new Error("Failed to fetch AI explanation")
+      if (!response.ok) {
+        if (response.status === 503 && retries > 1) {
+          retries--;
+          await new Promise(resolve => setTimeout(resolve, delay));
+          delay *= 2; // exponential backoff
+          continue;
+        }
+
+        const errorText = await response.text();
+        console.error("Gemini API Error:", response.status, errorText);
+        return { success: false, error: "The AI Assistant is currently unavailable due to high demand. Please try again later." };
+      }
+
+      const data = await response.json()
+      const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "No explanation available."
+      return { success: true, text }
+    } catch (error) {
+      if (retries > 1) {
+        retries--;
+        await new Promise(resolve => setTimeout(resolve, delay));
+        delay *= 2;
+        continue;
+      }
+      console.error("Unexpected AI Error:", error)
+      return { success: false, error: "An unexpected error occurred while generating the explanation." }
     }
-
-    const data = await response.json()
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "No explanation available."
-    return text
-  } catch (error) {
-    console.error(error)
-    throw new Error("An error occurred while generating the explanation.")
   }
+  
+  return { success: false, error: "The AI Assistant is currently unavailable." };
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
