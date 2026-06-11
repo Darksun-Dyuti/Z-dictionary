@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Z-Dictionary | Knowledge Platform",
+  title: "Arcanaz | Knowledge Platform",
   description: "A modern dictionary and encyclopedia platform.",
 };
 

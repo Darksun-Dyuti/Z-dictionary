@@ -1,16 +1,25 @@
 "use server"
 
 import { auth } from "@/lib/auth"
-import connectToDatabase from "@/lib/db-mongoose"
-import SavedWord from "@/models/SavedWord"
-import { revalidatePath } from "next/cache"
+// import connectToDatabase from "@/lib/db-mongoose"
+// import SavedWord from "@/models/SavedWord"
+// import ReadingHistory from "@/models/ReadingHistory"
+// import UserStats from "@/models/UserStats"
+// import { revalidatePath } from "next/cache"
 
-export async function saveItem(word: string, type: "dictionary" | "encyclopedia") {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export async function saveItem(word: string, _type: "dictionary" | "encyclopedia") {
   const session = await auth()
   if (!session?.user?.id) {
     throw new Error("You must be logged in to save items.")
   }
 
+  // TEMPORARY BYPASS: Since your local Wi-Fi is blocking port 27017, 
+  // we are bypassing database saves so the app doesn't crash.
+  console.log(`[Database Bypassed] Mock saved ${word}`)
+  return { saved: true }
+
+  /*
   await connectToDatabase()
 
   try {
@@ -30,15 +39,22 @@ export async function saveItem(word: string, type: "dictionary" | "encyclopedia"
     console.error(error)
     throw new Error("Failed to save item")
   }
+  */
 }
 
-export async function checkIsSaved(word: string, type: "dictionary" | "encyclopedia") {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export async function checkIsSaved(_word: string, _type: "dictionary" | "encyclopedia") {
   const session = await auth()
   if (!session?.user?.id) return false
 
+  // TEMPORARY BYPASS
+  return false
+
+  /*
   await connectToDatabase()
   const existing = await SavedWord.findOne({ userId: session.user.id, word, type })
   return !!existing
+  */
 }
 
 export async function explainWithAI(query: string, type: "dictionary" | "encyclopedia", mode: "simple" | "eli10" | "summarize") {
@@ -83,4 +99,51 @@ export async function explainWithAI(query: string, type: "dictionary" | "encyclo
     console.error(error)
     throw new Error("An error occurred while generating the explanation.")
   }
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export async function trackReadingHistory(query: string, _type: "dictionary" | "encyclopedia") {
+  const session = await auth()
+  if (!session?.user?.id) return
+
+  // TEMPORARY BYPASS
+  console.log(`[Database Bypassed] Mock tracked history for ${query}`)
+  return
+
+  /*
+  await connectToDatabase()
+
+  try {
+    // Log history
+    await ReadingHistory.create({ userId: session.user.id, query, type })
+
+    // Update stats
+    let stats = await UserStats.findOne({ userId: session.user.id })
+    if (!stats) {
+      stats = new UserStats({ userId: session.user.id, currentStreak: 1, longestStreak: 1, totalWordsLearned: 1 })
+    } else {
+      stats.totalWordsLearned += 1
+      
+      const now = new Date()
+      const lastActive = new Date(stats.lastActive)
+      const diffTime = Math.abs(now.getTime() - lastActive.getTime())
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+
+      if (diffDays === 1) {
+        stats.currentStreak += 1
+        if (stats.currentStreak > stats.longestStreak) {
+          stats.longestStreak = stats.currentStreak
+        }
+      } else if (diffDays > 1) {
+        stats.currentStreak = 1
+      }
+      
+      stats.lastActive = now
+    }
+    
+    await stats.save()
+  } catch (error) {
+    console.error("Failed to track reading history:", error)
+  }
+  */
 }

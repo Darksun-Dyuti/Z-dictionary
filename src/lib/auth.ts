@@ -1,10 +1,10 @@
 import NextAuth from "next-auth"
 import Google from "next-auth/providers/google"
-import { MongoDBAdapter } from "@auth/mongodb-adapter"
-import clientPromise from "./db"
+// import { MongoDBAdapter } from "@auth/mongodb-adapter"
+// import clientPromise from "./db"
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  adapter: MongoDBAdapter(clientPromise),
+  // adapter: MongoDBAdapter(clientPromise),
   providers: [
     Google({
       clientId: process.env.AUTH_GOOGLE_ID,
@@ -12,9 +12,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
   callbacks: {
-    async session({ session, user }) {
-      if (session.user && user.id) {
-        session.user.id = user.id
+    async session({ session, user, token }) {
+      if (session.user) {
+        if (user) {
+          session.user.id = user.id
+        } else if (token) {
+          session.user.id = token.sub as string
+        }
       }
       return session
     },
