@@ -3,38 +3,56 @@ import Image from "next/image"
 import { ThemeToggle } from "./ThemeToggle"
 import UserMenu from "./UserMenu"
 import { CommandPalette } from "./CommandPalette"
+import { NavbarScrollWrapper } from "./NavbarScrollWrapper"
 
 export default function Navbar() {
   return (
-    <header className="sticky top-0 z-50 w-full bg-background/60 backdrop-blur-xl">
-      <div className="container mx-auto px-4 flex h-16 items-center justify-between gap-4">
+    <NavbarScrollWrapper>
+      <div className="max-w-7xl mx-auto px-6 flex h-16 items-center justify-between gap-6">
+
         {/* Brand */}
-        <div className="flex-1 md:flex-none flex items-center gap-3">
-          <Link href="/" className="flex items-center gap-2 group">
+        <Link href="/" className="flex items-center gap-2.5 group shrink-0">
+          <div className="relative">
             <Image
               src="/logo-latest.png"
-              alt="Arcanaz Logo"
-              width={32}
-              height={32}
-              className="w-8 h-8 rounded-lg shadow-lg shadow-blue-300 dark:shadow-white/40 group-hover:shadow-primary/50 transition-all object-cover"
+              alt="Arcanaz"
+              width={28}
+              height={28}
+              className="w-7 h-7 rounded-lg object-cover transition-all duration-300 group-hover:opacity-90"
             />
-            <span className="font-bold text-xl tracking-tight text-transparent bg-clip-text bg-linear-to-r from-foreground to-foreground/70 hidden sm:inline-block">
-              Arcanaz
-            </span>
-          </Link>
-        </div>
+            <div className="absolute inset-0 rounded-lg ring-1 ring-inset ring-white/10 group-hover:ring-(--gold)/40 transition-all duration-300" />
+          </div>
+          <span className="font-semibold text-[15px] tracking-tight text-foreground/90 group-hover:text-foreground transition-colors duration-200 hidden sm:inline-block">
+            Arcanaz
+          </span>
+        </Link>
 
+        {/* Center Nav */}
+        <nav className="hidden md:flex items-center gap-1">
+          {[
+            { label: "Explore", href: "/topic/Knowledge" },
+            { label: "Dictionary", href: "/word/serendipity" },
+            { label: "Encyclopedia", href: "/topic/Artificial%20Intelligence" },
+          ].map((item) => (
+            <Link
+              key={item.label}
+              href={item.href}
+              className="px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground rounded-md hover:bg-muted/60 transition-all duration-200 font-medium"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
 
-
-        {/* Global Hidden Search Dialog */}
-        <CommandPalette />
-
-        {/* Actions */}
-        <div className="flex-1 md:flex-none flex justify-end items-center gap-4">
+        {/* Right actions */}
+        <div className="flex items-center gap-2 shrink-0">
           <ThemeToggle />
           <UserMenu />
         </div>
       </div>
-    </header>
+
+      {/* Global search dialog */}
+      <CommandPalette />
+    </NavbarScrollWrapper>
   )
 }

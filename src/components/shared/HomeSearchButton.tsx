@@ -6,45 +6,90 @@ import { motion, AnimatePresence } from "framer-motion"
 
 const placeholders = [
   "Search for any word...",
-  "Look up 'Artificial Intelligence'...",
-  "Discover the meaning of 'Serendipity'...",
-  "Explore science topics...",
-  "Find synonyms and origins...",
+  "What is consciousness?",
+  "Explore Artificial Intelligence...",
+  "Define serendipity...",
+  "Discover the Renaissance...",
+  "What is quantum entanglement?",
 ]
 
 export function HomeSearchButton() {
   const [index, setIndex] = useState(0)
+  const [hovered, setHovered] = useState(false)
 
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((current) => (current + 1) % placeholders.length)
-    }, 4000)
+    }, 3500)
     return () => clearInterval(interval)
   }, [])
 
   return (
-    <button
+    <motion.button
+      id="hero-search-btn"
+      whileHover={{ scale: 1.015 }}
+      whileFocus={{ scale: 1.015 }}
+      transition={{ duration: 0.2 }}
+      onHoverStart={() => setHovered(true)}
+      onHoverEnd={() => setHovered(false)}
       onClick={() => document.dispatchEvent(new CustomEvent("open-command-palette"))}
-      className="inline-flex items-center gap-4 transition-all duration-300 border border-white/10 hover:border-white/20 hover:bg-white/5 hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.1)] px-6 py-4 relative h-16 w-full max-w-2xl justify-start rounded-full bg-background/60 text-lg font-normal text-muted-foreground shadow-2xl backdrop-blur-xl group overflow-hidden"
+      className="relative inline-flex items-center gap-4 w-full max-w-2xl h-16 px-6 rounded-2xl border text-left cursor-pointer overflow-hidden"
+      style={{
+        background: "oklch(from var(--card) l c h / 0.7)",
+        backdropFilter: "blur(24px) saturate(180%)",
+        borderColor: hovered
+          ? "oklch(0.76 0.13 72 / 0.4)"
+          : "oklch(from var(--border) l c h / 0.7)",
+        boxShadow: hovered
+          ? "0 0 0 1px oklch(0.76 0.13 72 / 0.15), 0 8px 40px oklch(0 0 0 / 0.15), 0 1px 0 oklch(1 0 0 / 0.06) inset"
+          : "0 4px 24px oklch(0 0 0 / 0.08), 0 1px 0 oklch(1 0 0 / 0.05) inset",
+        transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+      }}
     >
-      <Search className="w-6 h-6 opacity-50 group-hover:opacity-100 transition-opacity shrink-0" />
-      <div className="relative flex-1 flex items-center h-full text-left overflow-hidden">
+      {/* Icon */}
+      <Search
+        className="w-5 h-5 shrink-0 transition-colors duration-300"
+        style={{ color: hovered ? "var(--gold)" : "oklch(from var(--muted-foreground) l c h / 0.6)" }}
+      />
+
+      {/* Animated placeholder */}
+      <div className="relative flex-1 overflow-hidden h-full flex items-center">
         <AnimatePresence mode="wait">
           <motion.span
             key={index}
-            initial={{ y: 20, opacity: 0 }}
+            initial={{ y: 18, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -20, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="absolute left-0 right-0 truncate text-base md:text-lg"
+            exit={{ y: -18, opacity: 0 }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute inset-0 flex items-center text-[15px] text-muted-foreground/70 font-normal truncate"
           >
             {placeholders[index]}
           </motion.span>
         </AnimatePresence>
       </div>
-      <kbd className="pointer-events-none absolute right-4 top-4.5 hidden h-7 select-none items-center gap-1 rounded-md border border-white/10 bg-white/5 px-2 font-mono text-[13px] font-medium opacity-100 sm:flex shrink-0">
-        <span className="text-xs">⌘</span>K
-      </kbd>
-    </button>
+
+      {/* Kbd shortcut */}
+      <div className="shrink-0 flex items-center gap-1 ml-2">
+        <kbd className="hidden sm:inline-flex h-7 items-center gap-0.5 rounded-lg border border-border/50 bg-muted/50 px-2 font-mono text-[11px] font-medium text-muted-foreground/70">
+          <span className="text-xs">⌘</span>K
+        </kbd>
+      </div>
+
+      {/* Subtle inner glow on hover */}
+      <AnimatePresence>
+        {hovered && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: "radial-gradient(ellipse 60% 80% at 0% 50%, oklch(0.76 0.13 72 / 0.06), transparent)",
+            }}
+          />
+        )}
+      </AnimatePresence>
+    </motion.button>
   )
 }

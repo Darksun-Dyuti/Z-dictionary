@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { ScrollArea } from "@/components/ui/scroll-area"
 
 interface TOCItem {
   id: string
@@ -18,12 +17,14 @@ export function TableOfContents() {
       const elements = Array.from(document.querySelectorAll(".prose h2, .prose h3"))
       const items: TOCItem[] = elements.map((el) => {
         if (!el.id) {
-          el.id = el.textContent?.toLowerCase().replace(/[^a-z0-9]+/g, "-") || Math.random().toString(36).slice(2)
+          el.id =
+            el.textContent?.toLowerCase().replace(/[^a-z0-9]+/g, "-") ||
+            Math.random().toString(36).slice(2)
         }
         return {
           id: el.id,
           text: el.textContent || "",
-          level: Number(el.tagName.charAt(1))
+          level: Number(el.tagName.charAt(1)),
         }
       })
       setHeadings(items)
@@ -55,24 +56,39 @@ export function TableOfContents() {
   if (headings.length === 0) return null
 
   return (
-    <div className="sticky top-24 hidden lg:block w-64 shrink-0">
-      <h4 className="font-semibold mb-4 text-sm uppercase tracking-wider text-muted-foreground">On this page</h4>
-      <ScrollArea className="h-[calc(100vh-8rem)]">
-        <ul className="space-y-3 text-sm">
-          {headings.map((heading) => (
-            <li key={heading.id} className={heading.level === 3 ? "ml-4" : ""}>
-              <a
-                href={`#${heading.id}`}
-                className={`block transition-all hover:text-primary ${
-                  activeId === heading.id ? "text-primary font-medium translate-x-1" : "text-muted-foreground"
-                }`}
-              >
-                {heading.text}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </ScrollArea>
-    </div>
+    <aside className="sticky top-24 hidden lg:block w-56 shrink-0">
+      <p className="text-[10px] font-semibold tracking-[0.14em] uppercase text-muted-foreground/60 mb-4">
+        On this page
+      </p>
+      <nav className="space-y-0.5">
+        {headings.map((heading) => (
+          <a
+            key={heading.id}
+            href={`#${heading.id}`}
+            className={`
+              block py-1.5 text-[13px] leading-snug transition-all duration-200 rounded-md
+              ${heading.level === 3 ? "pl-3" : ""}
+              ${
+                activeId === heading.id
+                  ? "text-foreground font-medium"
+                  : "text-muted-foreground/60 hover:text-muted-foreground"
+              }
+            `}
+            style={
+              activeId === heading.id
+                ? { color: "var(--gold)" }
+                : undefined
+            }
+          >
+            <span className={`inline-flex items-center gap-1.5 ${activeId === heading.id ? "translate-x-1" : ""} transition-transform duration-200`}>
+              {activeId === heading.id && (
+                <span className="w-1 h-1 rounded-full inline-block" style={{ background: "var(--gold)" }} />
+              )}
+              {heading.text}
+            </span>
+          </a>
+        ))}
+      </nav>
+    </aside>
   )
 }

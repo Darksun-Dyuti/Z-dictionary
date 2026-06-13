@@ -1,4 +1,5 @@
-import { auth, signIn, signOut } from "@/lib/auth"
+import { auth } from "@/lib/auth"
+import { signInAction, signOutAction } from "@/lib/auth-actions"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import {
@@ -34,13 +35,7 @@ export default async function UserMenu() {
             </DropdownMenuItem>
           </Link>
           <DropdownMenuSeparator />
-          <form
-            action={async () => {
-              "use server"
-              await signOut()
-            }}
-            className="w-full"
-          >
+          <form action={signOutAction} className="w-full">
             <DropdownMenuItem className="cursor-pointer p-0">
               <button type="submit" className="w-full text-left px-2 py-1.5">
                 Sign Out
@@ -53,12 +48,7 @@ export default async function UserMenu() {
   }
 
   return (
-    <form
-      action={async () => {
-        "use server"
-        await signIn("google")
-      }}
-    >
+    <form action={signInAction}>
       <Button type="submit" variant="default" size="sm">Sign In</Button>
     </form>
   )

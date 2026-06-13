@@ -22,6 +22,10 @@ if (!cached) {
 }
 
 async function connectToDatabase() {
+  if (!cached) {
+    cached = globalWithMongoose.mongoose = { conn: null, promise: null };
+  }
+
   if (cached.conn) {
     return cached.conn;
   }
