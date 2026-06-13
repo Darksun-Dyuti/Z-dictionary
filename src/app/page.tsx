@@ -101,9 +101,9 @@ export default function Home() {
       {/* ══ HERO ════════════════════════════════════════════════════ */}
       <section className="relative flex flex-col items-center justify-center min-h-[92vh] px-6 pb-24 text-center overflow-hidden hero-ambient">
         {/* Ambient orbs */}
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[600px] pointer-events-none -z-10">
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-225 h-150 pointer-events-none -z-10">
           <div className="absolute inset-0 bg-radial-[ellipse_60%_50%_at_50%_40%] from-[oklch(0.76_0.13_72/0.07)] to-transparent" />
-          <div className="absolute top-1/4 left-1/4 w-[500px] h-[300px] bg-radial-[ellipse_at_center] from-[oklch(0.70_0.08_240/0.04)] to-transparent blur-3xl" />
+          <div className="absolute top-1/4 left-1/4 w-125 h-75 bg-radial-[ellipse_at_center] from-[oklch(0.70_0.08_240/0.04)] to-transparent blur-3xl" />
         </div>
 
         {/* Eyebrow */}
@@ -217,7 +217,7 @@ export default function Home() {
           {featured.map((item, i) => (
             <FadeIn key={item.title} delay={i * 0.1} className={item.span}>
               <Link href={item.href} className="group block h-full">
-                <article className="editorial-card rounded-2xl overflow-hidden h-full min-h-[320px] relative flex flex-col justify-end">
+                <article className="editorial-card rounded-2xl overflow-hidden h-full min-h-80 relative flex flex-col justify-end">
                   {/* Background image */}
                   <div className="absolute inset-0 z-0">
                     <Image
@@ -271,7 +271,7 @@ export default function Home() {
             return (
               <FadeIn key={domain.title} delay={i * 0.07}>
                 <Link href={domain.href} className="group block">
-                  <article className="editorial-card rounded-2xl p-6 h-full flex flex-col justify-between min-h-[160px]">
+                  <article className="editorial-card rounded-2xl p-6 h-full flex flex-col justify-between min-h-40">
                     <div className={`self-start p-2.5 rounded-xl bg-linear-to-br ${domain.accent} mb-5 transition-transform duration-300 group-hover:scale-110`}>
                       <Icon className="w-5 h-5 text-foreground/70" />
                     </div>
@@ -351,7 +351,7 @@ export default function Home() {
           <Link href="/word/serendipity" className="group block">
             <article className="editorial-card rounded-2xl p-10 md:p-14 relative overflow-hidden">
               {/* Ambient */}
-              <div className="absolute top-0 right-0 w-[400px] h-[300px] bg-radial-[ellipse_at_top_right] from-[oklch(0.76_0.13_72/0.08)] to-transparent pointer-events-none" />
+              <div className="absolute top-0 right-0 w-100 h-75 bg-radial-[ellipse_at_top_right] from-[oklch(0.76_0.13_72/0.08)] to-transparent pointer-events-none" />
 
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 relative z-10">
                 <div className="max-w-2xl">

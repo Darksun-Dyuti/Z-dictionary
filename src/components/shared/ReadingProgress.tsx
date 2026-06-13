@@ -12,7 +12,7 @@ export default function ReadingProgress() {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 right-0 h-[2px] origin-left z-100"
+      className="fixed top-0 left-0 right-0 h-0.5 origin-left z-50"
       style={{
         scaleX,
         background: "linear-gradient(to right, oklch(0.76 0.13 72), oklch(0.85 0.09 72 / 0.6))",
